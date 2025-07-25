@@ -212,4 +212,8 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     viewer = PDFViewer()
     viewer.show()
-    sys.exit(app.exec_())
+    # sys.exit(app.exec_())
+    try:
+        sys.exit(app.exec_())
+    except KeyboardInterrupt:
+        print("Application closed by user.")
