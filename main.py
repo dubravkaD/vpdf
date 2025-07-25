@@ -10,8 +10,8 @@ from PIL import Image
 import io
 from PyQt5.QtWidgets import QSpinBox
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QSplitter, QSizePolicy
-from PyQt5.QtCore import QSize
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QIcon, QKeySequence
 
 class PDFViewer(QWidget):
     def __init__(self):
@@ -207,6 +207,22 @@ class PDFViewer(QWidget):
         if page_index is not None:
             self.page_num = page_index
             self.show_page()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Right:
+            self.next_page()
+        elif event.key() == Qt.Key_Left:
+            self.prev_page()
+        elif event.modifiers() == Qt.ControlModifier and event.key() == Qt.Key_O:
+            self.open_pdf()
+        elif event.modifiers() == Qt.ControlModifier and (event.key() == Qt.Key_Plus or event.key() == Qt.Key_Equal):
+            self.zoom_in()
+        elif event.modifiers() == Qt.ControlModifier and event.key() == Qt.Key_Minus:
+            self.zoom_out()
+        elif event.modifiers() == Qt.ControlModifier and event.key() == Qt.Key_G:
+            self.page_input.setFocus()
+        else:
+            super().keyPressEvent(event)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
