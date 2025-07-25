@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="resize screen &amp; scroll bars">
+    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="resize screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753447170612</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="resize screen">
+      <option name="closed" value="true" />
+      <created>1753447634482</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1753447634482</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -168,6 +175,7 @@
     <MESSAGE value="Keyboard shortcuts" />
     <MESSAGE value="Dark mode" />
     <MESSAGE value="resize screen &amp; scroll bars" />
-    <option name="LAST_COMMIT_MESSAGE" value="resize screen &amp; scroll bars" />
+    <MESSAGE value="resize screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="resize screen" />
   </component>
 </project>
