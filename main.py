@@ -2,10 +2,9 @@ import sys
 import fitz  # PyMuPDF
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton,
-    QVBoxLayout, QHBoxLayout, QFileDialog
+    QVBoxLayout, QHBoxLayout, QFileDialog, QScrollArea
 )
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt
 from PIL import Image
 import io
 from PyQt5.QtWidgets import QSpinBox
@@ -18,6 +17,7 @@ class PDFViewer(QWidget):
         super().__init__()
         self.setWindowTitle("PDF Viewer - PyQt5")
         self.setGeometry(100, 100, 800, 600)
+        self.showMaximized()
 
         self.dark_style = """
             QWidget {
@@ -112,7 +112,14 @@ class PDFViewer(QWidget):
         btn_layout.addWidget(self.btn_toggle_dark)
 
         right_layout.addLayout(btn_layout)
-        right_layout.addWidget(self.image_label)
+        # right_layout.addWidget(self.image_label)
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setAlignment(Qt.AlignCenter)
+        self.scroll_area.setStyleSheet("border: none;")  # optional
+
+        self.scroll_area.setWidget(self.image_label)
+        right_layout.addWidget(self.scroll_area)
 
         self.right_container.setLayout(right_layout)
 
@@ -161,7 +168,9 @@ class PDFViewer(QWidget):
         img_bytes = pix.tobytes("png")
         image = Image.open(io.BytesIO(img_bytes))
         qt_image = self.pil2pixmap(image)
+        # self.image_label.setPixmap(qt_image)
         self.image_label.setPixmap(qt_image)
+        self.image_label.resize(qt_image.size())
         self.page_label.setText(f"Page {self.page_num + 1} / {len(self.doc)}")
         self.page_input.setValue(self.page_num + 1)
         self.thumb_list.setCurrentRow(self.page_num)
