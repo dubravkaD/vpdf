@@ -19,6 +19,41 @@ class PDFViewer(QWidget):
         self.setWindowTitle("PDF Viewer - PyQt5")
         self.setGeometry(100, 100, 800, 600)
 
+        self.dark_style = """
+            QWidget {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            QPushButton {
+                background-color: #333333;
+                border: 1px solid #555555;
+                padding: 5px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #444444;
+            }
+            QLabel {
+                color: #e0e0e0;
+            }
+            QSpinBox {
+                background-color: #222222;
+                border: 1px solid #555555;
+                color: #e0e0e0;
+                padding: 2px;
+                border-radius: 4px;
+            }
+            QListWidget {
+                background-color: #1e1e1e;
+                border: none;
+                color: #e0e0e0;
+            }
+            QListWidget::item:selected {
+                background-color: #555555;
+                color: #ffffff;
+            }
+        """
+
         self.image_label = QLabel("Open a PDF file to start...")
         self.image_label.setAlignment(Qt.AlignCenter)
         self.image_label.setStyleSheet("border: 1px solid #ccc;")
@@ -30,6 +65,10 @@ class PDFViewer(QWidget):
 
         self.btn_prev.setEnabled(False)
         self.btn_next.setEnabled(False)
+
+        self.btn_toggle_dark = QPushButton("Toggle Dark Mode")
+        self.btn_toggle_dark.clicked.connect(self.toggle_dark_mode)
+        self.is_dark_mode = False
 
         self.page_input = QSpinBox()
         self.page_input.setMinimum(1)
@@ -70,6 +109,7 @@ class PDFViewer(QWidget):
         btn_layout.addWidget(self.btn_go)
         btn_layout.addWidget(self.btn_zoom_out)
         btn_layout.addWidget(self.btn_zoom_in)
+        btn_layout.addWidget(self.btn_toggle_dark)
 
         right_layout.addLayout(btn_layout)
         right_layout.addWidget(self.image_label)
@@ -223,6 +263,14 @@ class PDFViewer(QWidget):
             self.page_input.setFocus()
         else:
             super().keyPressEvent(event)
+
+    def toggle_dark_mode(self):
+        if self.is_dark_mode:
+            self.setStyleSheet("")  # Reset to default (light)
+            self.is_dark_mode = False
+        else:
+            self.setStyleSheet(self.dark_style)
+            self.is_dark_mode = True
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
