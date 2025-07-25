@@ -17,7 +17,7 @@ class PDFViewer(QWidget):
         super().__init__()
         self.setWindowTitle("PDF Viewer - PyQt5")
         self.setGeometry(100, 100, 800, 600)
-        self.showMaximized()
+        # self.showMaximized()
 
         self.dark_style = """
             QWidget {
@@ -284,6 +284,9 @@ class PDFViewer(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     viewer = PDFViewer()
+    # Full screen with OS frame/taskbar
+    # viewer.showMaximized()
+    # 	Default
     viewer.show()
     # sys.exit(app.exec_())
     try:
