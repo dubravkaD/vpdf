@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="zoom">
+    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="drag and drop">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +96,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753444261885</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="drag and drop">
+      <option name="closed" value="true" />
+      <created>1753444780064</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1753444780064</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -105,6 +113,7 @@
     <MESSAGE value="requirements" />
     <MESSAGE value="pyqt version 1" />
     <MESSAGE value="zoom" />
-    <option name="LAST_COMMIT_MESSAGE" value="zoom" />
+    <MESSAGE value="drag and drop" />
+    <option name="LAST_COMMIT_MESSAGE" value="drag and drop" />
   </component>
 </project>

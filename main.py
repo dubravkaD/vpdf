@@ -8,6 +8,7 @@ from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image
 import io
+from PyQt5.QtWidgets import QSpinBox
 
 class PDFViewer(QWidget):
     def __init__(self):
@@ -27,6 +28,13 @@ class PDFViewer(QWidget):
         self.btn_prev.setEnabled(False)
         self.btn_next.setEnabled(False)
 
+        self.page_input = QSpinBox()
+        self.page_input.setMinimum(1)
+        self.page_input.setMaximum(1)
+        self.page_input.setFixedWidth(70)
+
+        self.btn_go = QPushButton("Go")
+
         # Zoom
         self.btn_zoom_in = QPushButton("Zoom +")
         self.btn_zoom_out = QPushButton("Zoom -")
@@ -38,6 +46,8 @@ class PDFViewer(QWidget):
         btn_layout.addWidget(self.btn_prev)
         btn_layout.addWidget(self.page_label)
         btn_layout.addWidget(self.btn_next)
+        btn_layout.addWidget(self.page_input)
+        btn_layout.addWidget(self.btn_go)
         btn_layout.addWidget(self.btn_zoom_out)
         btn_layout.addWidget(self.btn_zoom_in)
 
@@ -53,6 +63,7 @@ class PDFViewer(QWidget):
         self.btn_next.clicked.connect(self.next_page)
         self.btn_zoom_in.clicked.connect(self.zoom_in)
         self.btn_zoom_out.clicked.connect(self.zoom_out)
+        self.btn_go.clicked.connect(self.go_to_page)
 
         # PDF State
         self.doc = None
@@ -83,11 +94,14 @@ class PDFViewer(QWidget):
         qt_image = self.pil2pixmap(image)
         self.image_label.setPixmap(qt_image)
         self.page_label.setText(f"Page {self.page_num + 1} / {len(self.doc)}")
+        self.page_input.setValue(self.page_num + 1)
 
     def load_pdf(self, file_path):
         self.doc = fitz.open(file_path)
         self.doc = fitz.open(file_path)
         self.page_num = 0
+        self.page_input.setMaximum(len(self.doc))
+        self.page_input.setValue(1)
         self.show_page()
         self.btn_prev.setEnabled(True)
         self.btn_next.setEnabled(True)
@@ -129,6 +143,12 @@ class PDFViewer(QWidget):
             file_path = urls[0].toLocalFile()
             if file_path.lower().endswith(".pdf"):
                 self.load_pdf(file_path)
+
+    def go_to_page(self):
+        page_index = self.page_input.value() - 1
+        if self.doc and 0 <= page_index < len(self.doc):
+            self.page_num = page_index
+            self.show_page()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
