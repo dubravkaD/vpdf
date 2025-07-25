@@ -9,6 +9,9 @@ from PyQt5.QtCore import Qt
 from PIL import Image
 import io
 from PyQt5.QtWidgets import QSpinBox
+from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QSplitter, QSizePolicy
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QIcon
 
 class PDFViewer(QWidget):
     def __init__(self):
@@ -40,8 +43,25 @@ class PDFViewer(QWidget):
         self.btn_zoom_out = QPushButton("Zoom -")
         self.zoom_level = 2.0  # Default scale factor
 
-        # Add to button layout
+        self.splitter = QSplitter()
+
+        # Thumbnails list on the left
+        self.thumb_list = QListWidget()
+        self.thumb_list.setMaximumWidth(150)
+        self.thumb_list.setSpacing(5)
+        self.thumb_list.setResizeMode(QListWidget.Adjust)
+        self.thumb_list.setViewMode(QListWidget.IconMode)
+        self.thumb_list.setIconSize(QSize(120, 160))
+        self.thumb_list.setMovement(QListWidget.Static)
+        self.thumb_list.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+
+        self.thumb_list.itemClicked.connect(self.thumb_clicked)
+
+        # Container widget for the right side (buttons + image)
+        self.right_container = QWidget()
+        right_layout = QVBoxLayout()
         btn_layout = QHBoxLayout()
+
         btn_layout.addWidget(self.btn_open)
         btn_layout.addWidget(self.btn_prev)
         btn_layout.addWidget(self.page_label)
@@ -51,9 +71,18 @@ class PDFViewer(QWidget):
         btn_layout.addWidget(self.btn_zoom_out)
         btn_layout.addWidget(self.btn_zoom_in)
 
+        right_layout.addLayout(btn_layout)
+        right_layout.addWidget(self.image_label)
+
+        self.right_container.setLayout(right_layout)
+
+        # Add to splitter
+        self.splitter.addWidget(self.thumb_list)
+        self.splitter.addWidget(self.right_container)
+
         main_layout = QVBoxLayout()
-        main_layout.addLayout(btn_layout)
-        main_layout.addWidget(self.image_label)
+        main_layout.addWidget(self.splitter)
+        # main_layout.addWidget(self.image_label)
 
         self.setLayout(main_layout)
 
@@ -95,16 +124,20 @@ class PDFViewer(QWidget):
         self.image_label.setPixmap(qt_image)
         self.page_label.setText(f"Page {self.page_num + 1} / {len(self.doc)}")
         self.page_input.setValue(self.page_num + 1)
+        self.thumb_list.setCurrentRow(self.page_num)
 
     def load_pdf(self, file_path):
-        self.doc = fitz.open(file_path)
-        self.doc = fitz.open(file_path)
-        self.page_num = 0
-        self.page_input.setMaximum(len(self.doc))
-        self.page_input.setValue(1)
-        self.show_page()
-        self.btn_prev.setEnabled(True)
-        self.btn_next.setEnabled(True)
+        try:
+            self.doc = fitz.open(file_path)
+            self.page_num = 0
+            self.page_input.setMaximum(len(self.doc))
+            self.page_input.setValue(1)
+            self.show_page()
+            self.btn_prev.setEnabled(True)
+            self.btn_next.setEnabled(True)
+            self.load_thumbnails()
+        except Exception as e:
+            print("Failed to load PDF:", e)
 
     def prev_page(self):
         if self.page_num > 0:
@@ -147,6 +180,31 @@ class PDFViewer(QWidget):
     def go_to_page(self):
         page_index = self.page_input.value() - 1
         if self.doc and 0 <= page_index < len(self.doc):
+            self.page_num = page_index
+            self.show_page()
+
+    def load_thumbnails(self):
+        self.thumb_list.clear()
+        if not self.doc:
+            return
+
+        for i in range(len(self.doc)):
+            page = self.doc.load_page(i)
+            pix = page.get_pixmap(matrix=fitz.Matrix(0.2, 0.2))  # Small scale
+            img_bytes = pix.tobytes("png")
+            image = Image.open(io.BytesIO(img_bytes))
+            qt_pixmap = self.pil2pixmap(image)
+
+            item = QListWidgetItem()
+            # item.setIcon(qt_pixmap)
+            item.setIcon(QIcon(qt_pixmap))
+            item.setData(Qt.UserRole, i)  # Store page index
+            item.setToolTip(f"Page {i + 1}")
+            self.thumb_list.addItem(item)
+
+    def thumb_clicked(self, item):
+        page_index = item.data(Qt.UserRole)
+        if page_index is not None:
             self.page_num = page_index
             self.show_page()
 
