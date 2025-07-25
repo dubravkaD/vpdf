@@ -1,5 +1,7 @@
-.venv
-.idea
+.venv/
+venv
+.idea/
+.vscode/
 build
 vPDF.spec
 dist
