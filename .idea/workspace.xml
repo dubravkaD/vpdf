@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="requirements" />
+    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="pyqt version 1">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +33,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
     "Python.tkv.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -77,13 +80,22 @@
       <option name="project" value="LOCAL" />
       <updated>1753443860583</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="pyqt version 1">
+      <option name="closed" value="true" />
+      <created>1753443972664</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1753443972664</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="project structure" />
     <MESSAGE value="tkinter version" />
     <MESSAGE value="requirements" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements" />
+    <MESSAGE value="pyqt version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="pyqt version 1" />
   </component>
 </project>

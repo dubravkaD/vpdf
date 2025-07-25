@@ -27,12 +27,19 @@ class PDFViewer(QWidget):
         self.btn_prev.setEnabled(False)
         self.btn_next.setEnabled(False)
 
-        # Layout
+        # Zoom
+        self.btn_zoom_in = QPushButton("Zoom +")
+        self.btn_zoom_out = QPushButton("Zoom -")
+        self.zoom_level = 2.0  # Default scale factor
+
+        # Add to button layout
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(self.btn_open)
         btn_layout.addWidget(self.btn_prev)
         btn_layout.addWidget(self.page_label)
         btn_layout.addWidget(self.btn_next)
+        btn_layout.addWidget(self.btn_zoom_out)
+        btn_layout.addWidget(self.btn_zoom_in)
 
         main_layout = QVBoxLayout()
         main_layout.addLayout(btn_layout)
@@ -44,6 +51,8 @@ class PDFViewer(QWidget):
         self.btn_open.clicked.connect(self.open_pdf)
         self.btn_prev.clicked.connect(self.prev_page)
         self.btn_next.clicked.connect(self.next_page)
+        self.btn_zoom_in.clicked.connect(self.zoom_in)
+        self.btn_zoom_out.clicked.connect(self.zoom_out)
 
         # PDF State
         self.doc = None
@@ -63,7 +72,7 @@ class PDFViewer(QWidget):
             return
 
         page = self.doc.load_page(self.page_num)
-        pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))  # Zoom: scale=2
+        pix = page.get_pixmap(matrix=fitz.Matrix(self.zoom_level, self.zoom_level))
         img_bytes = pix.tobytes("png")
         image = Image.open(io.BytesIO(img_bytes))
         qt_image = self.pil2pixmap(image)
@@ -85,6 +94,15 @@ class PDFViewer(QWidget):
         data = img.tobytes("raw", "RGBA")
         qimg = QImage(data, img.width, img.height, QImage.Format_RGBA8888)
         return QPixmap.fromImage(qimg)
+
+    def zoom_in(self):
+        self.zoom_level += 0.5
+        self.show_page()
+
+    def zoom_out(self):
+        if self.zoom_level > 0.5:
+            self.zoom_level -= 0.5
+            self.show_page()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
