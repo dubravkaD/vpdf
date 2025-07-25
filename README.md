@@ -26,6 +26,9 @@ Supports opening PDFs, navigating pages, zooming, thumbnails, dark mode, and dra
 ## Platforms
 - Windows
 
+## Download
+[Download](https://github.com/dubravkaD/vpdf/releases)
+
 ## Usage
 - Launch the app.
 - Click Open PDF or drag & drop a PDF file to load.
