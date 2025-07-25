@@ -58,19 +58,24 @@ class PDFViewer(QWidget):
         self.doc = None
         self.page_num = 0
 
+        # Drag & Drop
+        self.setAcceptDrops(True)
+
     def open_pdf(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open PDF", "", "PDF Files (*.pdf)")
         if file_path:
-            self.doc = fitz.open(file_path)
-            self.page_num = 0
-            self.show_page()
-            self.btn_prev.setEnabled(True)
-            self.btn_next.setEnabled(True)
+            self.load_pdf(file_path)
+        # file_path, _ = QFileDialog.getOpenFileName(self, "Open PDF", "", "PDF Files (*.pdf)")
+        # if file_path:
+        #     self.doc = fitz.open(file_path)
+        #     self.page_num = 0
+        #     self.show_page()
+        #     self.btn_prev.setEnabled(True)
+        #     self.btn_next.setEnabled(True)
 
     def show_page(self):
         if not self.doc:
             return
-
         page = self.doc.load_page(self.page_num)
         pix = page.get_pixmap(matrix=fitz.Matrix(self.zoom_level, self.zoom_level))
         img_bytes = pix.tobytes("png")
@@ -78,6 +83,14 @@ class PDFViewer(QWidget):
         qt_image = self.pil2pixmap(image)
         self.image_label.setPixmap(qt_image)
         self.page_label.setText(f"Page {self.page_num + 1} / {len(self.doc)}")
+
+    def load_pdf(self, file_path):
+        self.doc = fitz.open(file_path)
+        self.doc = fitz.open(file_path)
+        self.page_num = 0
+        self.show_page()
+        self.btn_prev.setEnabled(True)
+        self.btn_next.setEnabled(True)
 
     def prev_page(self):
         if self.page_num > 0:
@@ -103,6 +116,19 @@ class PDFViewer(QWidget):
         if self.zoom_level > 0.5:
             self.zoom_level -= 0.5
             self.show_page()
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            urls = event.mimeData().urls()
+            if urls and urls[0].toLocalFile().lower().endswith(".pdf"):
+                event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        urls = event.mimeData().urls()
+        if urls:
+            file_path = urls[0].toLocalFile()
+            if file_path.lower().endswith(".pdf"):
+                self.load_pdf(file_path)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
