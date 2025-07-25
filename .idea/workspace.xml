@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment="resize screen">
+    <list default="true" id="20f38171-0560-48d5-97f8-2b6f606b2c8a" name="Changes" comment=".exe in dist">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/vPDF.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +43,11 @@
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\pyProjectsPyCharm\vpdf" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -160,7 +167,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753447634482</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="icon">
+      <option name="closed" value="true" />
+      <created>1753448043533</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1753448043533</updated>
+    </task>
+    <task id="LOCAL-00015" summary=".exe in dist">
+      <option name="closed" value="true" />
+      <created>1753448284115</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1753448284115</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -176,6 +199,8 @@
     <MESSAGE value="Dark mode" />
     <MESSAGE value="resize screen &amp; scroll bars" />
     <MESSAGE value="resize screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="resize screen" />
+    <MESSAGE value="icon" />
+    <MESSAGE value=".exe in dist" />
+    <option name="LAST_COMMIT_MESSAGE" value=".exe in dist" />
   </component>
 </project>
