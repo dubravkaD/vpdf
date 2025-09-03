@@ -3,5 +3,7 @@ venv
 .idea/
 .vscode/
 build
+dist/
 vPDF.spec
+*.spec
 dist
